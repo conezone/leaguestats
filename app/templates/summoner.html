@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% set game_types = {
+		'RANKED_TEAM_3x3': 'Ranked Team 3v3',
+		'RANKED_TEAM_5x5': 'Ranked Team 5v5',
+		'RANKED_SOLO_5x5': 'Ranked Solo Queue',
+		'RANKED_DUO_5x5': 'Ranked Duo Queue'
+	} -%}
+{% set active_page = "summoner" %}
+{% set game_version = game_version|default('4.17.1') %}
+{% block content %}
+<div class="row summoner-info-row">
+	<div class="col-lg-6 summoner-info">
+		<h1><strong>{{ summoner.name }}</strong></h1>
+	</div>
+	<!--
+	<div class="col-lg-2">
+		<img src="http://ddragon.leagueoflegends.com/cdn/{{ game_version }}/img/profileicon/{{ summoner.profileIconId }}.png" class="profile-icon">
+	</div>
+	-->
+	<div class="col-lg-2">
+		<h3>
+			<small>{{ game_types['RANKED_TEAM_3x3'] }}</small><br>
+			<strong>
+			{% if leagues and leagues['RANKED_TEAM_3x3'] %}
+				{% if leagues['RANKED_TEAM_3x3']['inactive'] %}
+					<span>Inactive</span>
+				{% else %}
+					{{ leagues['RANKED_TEAM_3x3']['tier'] }}
+					<span class="rank">{{ leagues['RANKED_TEAM_3x3']['division'] }}</span>
+				{% endif %}
+				{% if leagues['RANKED_TEAM_3x3']['hotStreak'] %}
+				<small>
+					<span class="glyphicon glyphicon-fire"></span>
+				</small>
+				{% endif %}
+			{% else %}
+				Unranked
+			{% endif %}
+			</strong>
+		</h3>
+	</div>
+	<div class="col-lg-2">
+		<h3>
+			<small>{{ game_types['RANKED_SOLO_5x5'] }}</small><br>
+			<strong>
+			{% if leagues and leagues['RANKED_SOLO_5x5'] %}
+				{% if leagues['RANKED_SOLO_5x5']['inactive'] %}
+					<span>Inactive</span>
+				{% else %}
+					{{ leagues['RANKED_SOLO_5x5']['tier'] }}
+					<span class="rank">{{ leagues['RANKED_SOLO_5x5']['division'] }}</span>
+				{% endif %}
+				{% if leagues['RANKED_SOLO_5x5']['hotStreak'] %}
+				<small>
+					<span class="glyphicon glyphicon-fire"></span>
+				</small>
+				{% endif %}
+			{% else %}
+				Unranked
+			{% endif %}
+			</strong>
+		</h3>
+	</div>
+	<div class="col-lg-2 summoner-rank">
+		<h3>
+			<small>{{ game_types['RANKED_TEAM_5x5'] }}</small><br>
+			<strong>
+			{% if leagues and leagues['RANKED_TEAM_5x5'] %}
+				{% if leagues['RANKED_TEAM_5x5']['inactive'] %}
+					<span>Inactive</span>
+				{% else %}
+					{{ leagues['RANKED_TEAM_5x5']['tier'] }}
+					<span class="rank">{{ leagues['RANKED_TEAM_5x5']['division'] }}</span>
+				{% endif %}
+				{% if leagues['RANKED_TEAM_5x5']['hotStreak'] %}
+				<small>
+					<span class="glyphicon glyphicon-fire"></span>
+				</small>
+				{% endif %}
+			{% else %}
+				Unranked
+			{% endif %}
+			</strong>
+		</h3>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+        <h3 class="panel-title">Recent Ranked Matches</h3>
+      </div>
+      <div class="panel-body">
+      {% if matches %}
+      	<div class="panel-group">
+        {% for match in matches %}
+          <div class="panel panel{% if match.winner %}-success
+                      {% else %}-danger{% endif %}"
+                onclick="$('#{{ match.id }}').collapse('toggle');">
+            <div class="panel-heading mh-row">
+  						<div class="mh-champicon">
+  							<a href="champion/{{ match.champId }}"><img src="http://ddragon.leagueoflegends.com/cdn/{{ game_version }}/img/champion/{{ match.champion }}.png" class="champ-icon"></a>
+							</div>
+        			<div class="mh-summoners">
+	          		<img src="http://ddragon.leagueoflegends.com/cdn/{{ game_version }}/img/spell/{{ match.summoners[0] }}.png" class="summoner-icon">
+	        			<img src="http://ddragon.leagueoflegends.com/cdn/{{ game_version }}/img/spell/{{ match.summoners[1] }}.png" class="summoner-icon">
+        			</div>
+        			<span class="mh-champion">
+        				<a href="champion/{{ match.champId }}">{{ match.champion }}</a>
+      				</span>
+        			<span class="mh-gametype">{{ game_types[match.gameType] }}</span>
+      				<span class="mh-items">
+              {% for item, name in match['items'] %}
+                {% if item == 0 %}
+                <img src="/static/images/item-placeholder.png" class="item-icon">
+                {% else %}
+                <img src="http://ddragon.leagueoflegends.com/cdn/{{ game_version }}/img/item/{{ item }}.png" class="item-icon ls-tt" data-toggle="tooltip" data-placement="top" alt="{{ name }}" title="{{ name }}">
+                {% endif %}
+              {% endfor %}
+      				</span>
+        			<span class="mh-duration-created">
+        				{{ match.duration }}<br>
+        				<small>{{ match.created }}</small>
+      				</span>
+      				<span class="mh-kda-cs">
+      					<strong>{{ match.kills }}/{{ match.deaths }}/{{ match. assists }}</strong> KDA<br>
+      					<small  class="ls-tt" data-toggle="tooltip" data-html="true" data-placement="top" title="Lane: {{ match.minions }} <br />Jungle: {{ match.jungle_creeps }}">
+      						<strong>{{ match.minions + match.jungle_creeps }}</strong> CS
+      					</small>
+      				</span>
+            </div>
+            <div id="{{ match.id }}" class="panel-collapse collapse">
+              <div class="match-info">
+              	<a class="btn btn-default btn-lg" href="{{ match.link }}" target="_blank">
+              		RIOT Stats
+              	</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+      {% else %}
+      	No ranked match history found!
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

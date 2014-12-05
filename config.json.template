@@ -1,0 +1,17 @@
+{
+	"DEBUG": true,
+
+	"SECRET_KEY": "MAKE_SURE_TO_CHANGE_ME",
+	"MIXPANEL_KEY": "MAKE_SURE_TO_CHANGE_ME",
+	"RIOT_API_KEY": "MAKE_SURE_TO_CHANGE_ME",
+
+	"API_PATH": "/api/v1",
+	"GAME_VERSION": "4.17.1",
+
+	"SCOREBOARD": "http://matchhistory.{region}.leagueoflegends.com/en/#match-details/{region}1/{match_id}",
+
+	"STATIC_API": "https://{region}.api.pvp.net/api/lol/static-data/{region}/v1.2/{call}",
+	"SUMMONER_API": "https://{region}.api.pvp.net/api/lol/{region}/v1.4/summoner/{call}",
+	"MATCH_HISTORY_API": "https://{region}.api.pvp.net/api/lol/{region}/v2.2/matchhistory/{call}",
+	"LEAGUES_API": "https://{region}.api.pvp.net/api/lol/{region}/v2.5/league/by-summoner/{call}"
+}

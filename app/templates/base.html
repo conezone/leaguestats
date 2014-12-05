@@ -1,0 +1,91 @@
+{# path, requires logged in, active_page, text to show #}
+{% set navigation_bar = [
+	('/', false, 'index', 'Home'),
+	('#', true, 'friends', 'Friends'),
+	('#', true, 'matchups', 'Matchups'),
+	('#', false, 'contact', 'Contact')
+] -%}
+{% set active_page = active_page|default('index') -%}
+<html>
+	<head>
+		{% if title %}
+		<title>{{title}} - LeagueStats</title>
+		{% else %}
+		<title>LeagueStats</title>
+		{% endif %}
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/css/theme.css">
+		<link rel="stylesheet" href="/static/css/style.css">
+
+		<!-- start Mixpanel -->
+		<script type="text/javascript">
+		(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+			for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+			mixpanel.init("40bea792f9a85a7924119d23bb5855ce");
+
+			// TODO: get real page tracking, not here
+			//mixpanel.track("Page View", { "page": "{{title}}" });
+		</script>
+		<!-- end Mixpanel -->
+	</head>
+	<body>
+		<div class="container">
+			<div class="masthead">
+				<div class="jumbotron">
+					<h1>LeagueStats</h1>
+					<div class="row">
+						<div class="col-lg-4 col-lg-offset-4">
+							<form method="post" action="{{ url_for('search') }}" role="search">
+								<div class="input-group">
+									<input type="text" name="search" class="form-control" placeholder="Search champions and summoners...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="submit">
+											<span class="glyphicon glyphicon-search"></span>&nbsp;
+										</button>
+									<!--
+										<a class="btn btn-default" href="{{ champ_search }}">
+											<span class="glyphicon glyphicon-search"></span>&nbsp;
+										</a>
+									-->
+									</span>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<ul class="nav nav-tabs" role="tablist">
+				{% for href, req_log, id, caption in navigation_bar %}
+					<li
+					{% if id == active_page %}
+						class="active"
+					{% elif req_log and not logged_in %}
+						class="disabled"
+					{% endif %}
+					>
+						<a href="{{ href|e }}">{{ caption|e }}
+							{% if id == 'matchups' %} <span class="badge">16</span>{% endif %}
+						</a>
+					</li>
+				{% endfor %}
+				</ul>
+			</div>
+			{% block content %}{% endblock %}
+			<div class="footer">
+				<p class="text-muted">
+					<span class="pull-left">
+						<span class="glyphicon glyphicon-copyright-mark"></span> LeagueStats 2014
+					</span>
+					<span class="pull-right">
+						We have nothing to do with Riot Games, Inc. or any of its affiliates
+					</span>
+				</p>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script>
+			$('.ls-tt').tooltip();
+		</script>
+	</body>
+</html>

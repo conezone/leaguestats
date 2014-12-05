@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% set active_page = "index" %}
+{% block content %}
+<div class="row">
+	<div class="col-md-5 col-md-offset-1">
+		<h1><strong>What is LeagueStats?</strong></h1>
+		<hr>
+		<h3>A site dedicated to helping you win games!  Track past lane matchups and choose your champion with confidence.</h3>
+		<a class="btn btn-success btn-lrg pull-right" href="#">Sign Up to get started!</a>
+	</div>
+	<div class="col-md-5">
+		I need to put something here... Ad maybe?  That's a big ad, though...
+	</div>
+</div>
+
+<!-- IF LOGGED IN -->
+<hr>
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title"><a href="#">Friends List >></a></div>
+			</div>
+			<table class="table table-striped table-condensed table-hover">
+				<thead>
+					<tr>
+						<th width="45%">Player</th>
+						<th width="35%">Rank</th>
+						<th width="20%">Wins</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="summoners/{{id}}">Player Name</a></td>
+						<td><span class="rank">Rank</span></td>
+						<td>Wins</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">Recent Matchups</div>
+			</div>
+			<table class="table table-striped table-condensed table-hover">
+				<thead>
+					<tr>
+						<th width="20%">You</th>
+						<th width="50%">Enemy</th>
+						<th width="5%">W/L</th>
+						<th width="25%">K | D</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="champions/{{id}}">Icon</a></td>
+						<td>
+							<a href="champions/{{id}}">Icon</a> -
+							<a href="summoners/{{id}}">Player Name</a>
+						</td>
+						<td>L</td>
+						<td>KK | DD</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">Recent Searches</div>
+			</div>
+			<table class="table table-striped table-condensed table-hover">
+				<thead>
+					<tr>
+						<th width="45%">Player</th>
+						<th width="35%">Rank</th>
+						<th width="20%">Wins</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="summoners/{{id}}">Player Name</a></td>
+						<td><span class="rank">Rank</span></td>
+						<td>Wins</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- END IF LOGGED IN -->
+{% endblock %}

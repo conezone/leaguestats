@@ -1,0 +1,120 @@
+body { background-color: #ccc; }
+.container { background-color: #fff; }
+.rank { text-transform: capitalize; }
+
+
+.mh-row {
+	height: 66px;
+	vertical-align: middle;
+}
+
+.mh-duration-created {
+	float: right;
+	height: 46px;
+	text-align: center;
+	padding-top: 4px;
+	color: #333;
+}
+
+.mh-items {
+	float: left;
+	padding: 4px;
+}
+
+.mh-kda-cs {
+	float: right;
+	height: 46px;
+	text-align: center;
+	padding-top: 4px;
+	margin-right: 36px;
+	color: #333;
+}
+
+.mh-champicon {
+	float:left;
+}
+
+.mh-champion {
+	height: 46px;
+	line-height: 46px;
+	vertical-align: middle;
+	float: left;
+	margin-left: 4px;
+	color: #333;
+	width: 8em;
+}
+
+.mh-champion a {
+	color: #333;
+}
+
+.mh-summoners {
+	width: 17px;
+	height: 36px;
+	float: left;
+	margin-top: 0;
+	margin-right: 8px;
+}
+
+.mh-summoners img {
+	display: block;
+	margin: 0;
+	padding: 1px;
+}
+
+.mh-gametype {
+	height: 46px;
+	width: 12em;
+	line-height: 46px;
+	vertical-align: middle;
+	float: left;
+	color: #333;
+}
+
+.champ-icon {
+	width: 46px;
+	height: 46px;
+	border: 0px;
+	border-radius: 4px;
+}
+
+.summoner-icon {
+	width: 23px;
+	height: 23px;
+	border: 0px;
+	border-radius: 4px;
+}
+
+.profile-icon {
+	width: 72px;
+	height: 72px;
+	border: 0px;
+	border-radius: 4px;
+}
+
+.item-icon 	{
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	border-radius: 4px;
+}
+
+.summoner-info-row {
+	background-color: #eee;
+	border-width: 1px;
+	border-color: #aaa;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	text-align: center;
+	vertical-align: center;
+}
+
+.summoner-info {
+	text-align: left;
+}
+
+.match-info {
+	padding: 10px;
+	text-align: center;
+	vertical-align: center;
+}
